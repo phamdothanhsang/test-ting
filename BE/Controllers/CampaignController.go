@@ -21,13 +21,15 @@ func GetKolsController(context *gin.Context) {
 	// @params: pageSize
 
 	// * Perform Logic Here
+	pageIndex := 1
+	pageSize := 100
 	// ! Pass the parameters to the Logic Layer
-	kols, error := Logic.GetKolLogic()
+	kols, error := Logic.GetKolLogic(pageIndex, pageSize)
 	if error != nil {
 		KolsVM.Result = Const.UnSuccess
 		KolsVM.ErrorMessage = error.Error()
-		KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-		KolsVM.PageSize = 10 // * change this to the actual page size from the request
+		KolsVM.PageIndex = int64(pageIndex) // * change this to the actual page index from the request
+		KolsVM.PageSize = int64(pageSize)   // * change this to the actual page size from the request
 		KolsVM.Guid = guid
 		context.JSON(http.StatusInternalServerError, KolsVM)
 		return
@@ -37,8 +39,8 @@ func GetKolsController(context *gin.Context) {
 	// ? If the logic is successful, return the response with HTTP Status OK (200)
 	KolsVM.Result = Const.Success
 	KolsVM.ErrorMessage = ""
-	KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-	KolsVM.PageSize = 10 // * change this to the actual page size from the request
+	KolsVM.PageIndex = int64(pageIndex) // * change this to the actual page index from the request
+	KolsVM.PageSize = int64(pageSize)   // * change this to the actual page size from the request
 	KolsVM.Guid = guid
 	KolsVM.KOL = kols
 	KolsVM.TotalCount = int64(len(kols))

@@ -3,9 +3,45 @@
     This is the CSS file for the page component. 
     It contains the styles for the header of the page.
 */
-.header { 
+/* .header { 
     background-color: #333;
     color: white;
     padding: 1em;
     text-align: center;
+} */
+body{
+ 
+}
+.table>:not(caption)>*>* {
+    padding: 0.5rem 1.5rem !important;
+}
+/* tr {
+    width: 100%;
+    display: inline-table;
+    height:60px;
+    table-layout: fixed;
+      
+    }
+    
+    table{
+     height:100%; 
+     width: 100%;
+     display: block;
+    }
+    tbody{
+      overflow:auto;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    } */
+.listKOL{
+overflow-y: auto;
+overflow-x: auto;
+}
+
+.table th {
+    white-space: nowrap;
+}
+.header{
+    width:100%;
 }

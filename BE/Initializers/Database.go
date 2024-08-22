@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"time"
+	"wan-api-kol-event/Models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,6 +12,14 @@ import (
 )
 
 var DB *gorm.DB
+
+// check table
+func tableExists(db *gorm.DB, tableName string) bool {
+	var count int
+	query := `SELECT count(*) FROM information_schema.tables WHERE table_name = ?`
+	db.Raw(query, tableName).Scan(&count)
+	return count > 0
+}
 
 func ConnectToDB() {
 	var err error
@@ -34,5 +43,16 @@ func ConnectToDB() {
 
 	if err != nil {
 		log.Fatal("Failed to connect to database")
+	}
+
+	// Check if table exists
+	if !tableExists(DB, "KOL") {
+		err = DB.AutoMigrate(&Models.Kol{})
+		if err != nil {
+			log.Fatal("Failed to migrate database schema:", err)
+		}
+		log.Println("Table created successfully.")
+	} else {
+		log.Println("Table already exists, skipping migration.")
 	}
 }
