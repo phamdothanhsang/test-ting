@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"time"
 	"wan-api-kol-event/Const"
+	"wan-api-kol-event/Utils"
 )
 
 type Kol struct {
@@ -57,12 +58,12 @@ func GetRandomKol(i int64) Kol {
 		ExpectedSalary:       rand.Int63n(10000) + 3000,
 		ExpectedSalaryEnable: rand.Intn(2) == 1,
 		ChannelSettingTypeID: int64(rand.Intn(5) + 1),
-		IDFrontURL:           "http://example.com/idfront/" + randomString(3) + ".jpg",
-		IDBackURL:            "http://example.com/idback/" + randomString(3) + ".jpg",
-		PortraitURL:          "http://example.com/portrait/" + randomString(3) + ".jpg",
-		RewardID:             int64(rand.Intn(5) + 1),
-		PaymentMethodID:      int64(rand.Intn(5) + 1),
-		TestimonialsID:       int64(rand.Intn(5) + 1),
+		IDFrontURL:           "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1",
+		IDBackURL:            "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1",
+		PortraitURL:          "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1",
+		RewardID:             int64(rand.Intn(999) + 1),
+		PaymentMethodID:      int64(rand.Intn(999) + 1),
+		TestimonialsID:       int64(rand.Intn(999) + 1),
 		VerificationStatus:   rand.Intn(2) == 1,
 		Enabled:              rand.Intn(2) == 1,
 		ActiveDate:           time.Now(),
@@ -73,9 +74,9 @@ func GetRandomKol(i int64) Kol {
 		ModifiedDate:         time.Now(),
 		IsRemove:             false,
 		IsOnBoarding:         rand.Intn(2) == 1,
-		Code:                 "KOL" + randomString(3),
-		PortraitRightURL:     "http://example.com/portraitright/" + randomString(3) + ".jpg",
-		PortraitLeftURL:      "http://example.com/portraitleft/" + randomString(3) + ".jpg",
+		Code:                 "KOL" + Utils.Int64ToString(rand.Int63n(10000)+3000),
+		PortraitRightURL:     "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1",
+		PortraitLeftURL:      "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1",
 		LivenessStatus:       rand.Intn(2) == 1,
 	}
 }

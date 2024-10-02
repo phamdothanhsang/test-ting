@@ -19,7 +19,7 @@ type KolDTO struct {
 	RewardID             int64     `json:"rewardID"`
 	PaymentMethodID      int64     `json:"paymentMethodID"`
 	TestimonialsID       int64     `json:"testimonialsID"`
-	VerificationStatus   bool      `json:"verificationStatus"`
+	VerificationStatus   string    `json:"verificationStatus"` // Changed to string
 	Enabled              bool      `json:"enabled"`
 	ActiveDate           time.Time `json:"activeDate"`
 	Active               bool      `json:"active"`
@@ -32,7 +32,7 @@ type KolDTO struct {
 	Code                 string    `json:"code"`
 	PortraitRightURL     string    `json:"portraitRightURL"`
 	PortraitLeftURL      string    `json:"portraitLeftURL"`
-	LivenessStatus       bool      `json:"livenessStatus"`
+	LivenessStatus       string    `json:"livenessStatus"` // Changed to string
 }
 
 func NewKolDTO(kol Models.Kol) *KolDTO {
@@ -50,7 +50,7 @@ func NewKolDTO(kol Models.Kol) *KolDTO {
 		RewardID:             kol.RewardID,
 		PaymentMethodID:      kol.PaymentMethodID,
 		TestimonialsID:       kol.TestimonialsID,
-		VerificationStatus:   kol.VerificationStatus,
+		VerificationStatus:   mapVerificationStatus(kol.VerificationStatus),
 		Enabled:              kol.Enabled,
 		ActiveDate:           kol.ActiveDate,
 		Active:               kol.Active,
@@ -63,6 +63,20 @@ func NewKolDTO(kol Models.Kol) *KolDTO {
 		Code:                 kol.Code,
 		PortraitRightURL:     kol.PortraitRightURL,
 		PortraitLeftURL:      kol.PortraitLeftURL,
-		LivenessStatus:       kol.LivenessStatus,
+		LivenessStatus:       mapLivenessStatus(kol.LivenessStatus),
 	}
+}
+
+func mapVerificationStatus(status bool) string {
+	if status {
+		return "Verified"
+	}
+	return "Pending"
+}
+
+func mapLivenessStatus(status bool) string {
+	if status {
+		return "Passed"
+	}
+	return "Failed"
 }
