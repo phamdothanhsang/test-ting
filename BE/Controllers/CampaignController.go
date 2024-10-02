@@ -3,8 +3,8 @@ package Controllers
 import (
 	"math"
 	"net/http"
+	"strconv"
 	"wan-api-kol-event/Const"
-	"wan-api-kol-event/DTO"
 	"wan-api-kol-event/Logic"
 	"wan-api-kol-event/ViewModels"
 
@@ -14,18 +14,28 @@ import (
 
 func GetKolsController(context *gin.Context) {
 	var KolsVM ViewModels.KolViewModel
-	var SearchDTO DTO.GetSearchParam
-	var guid = uuid.New().String()
+	guid := uuid.New().String()
 
-	if err := context.ShouldBindJSON(&SearchDTO); err != nil {
-		SearchDTO.PageIndex = 1
-		SearchDTO.PageSize = math.MaxInt // If no body => get all
+	pageIndex := 1
+	pageSize := math.MaxInt // Default to max int for all records
+
+	if pageIndexParam := context.Query("pageIndex"); pageIndexParam != "" {
+		if idx, err := strconv.Atoi(pageIndexParam); err == nil {
+			pageIndex = idx
+		}
 	}
 
-	kols, error := Logic.GetKolLogic(int64(SearchDTO.PageIndex), int64(SearchDTO.PageSize))
-	if error != nil {
+	if pageSizeParam := context.Query("pageSize"); pageSizeParam != "" {
+		if size, err := strconv.Atoi(pageSizeParam); err == nil {
+			pageSize = size
+		}
+	}
+
+	// Fetch KOL data using logic layer
+	kols, err := Logic.GetKolLogic(int64(pageIndex), int64(pageSize))
+	if err != nil {
 		KolsVM.Result = Const.UnSuccess
-		KolsVM.ErrorMessage = error.Error()
+		KolsVM.ErrorMessage = err.Error()
 		KolsVM.PageIndex = 1
 		KolsVM.PageSize = 10
 		KolsVM.Guid = guid
@@ -35,8 +45,8 @@ func GetKolsController(context *gin.Context) {
 
 	KolsVM.Result = Const.Success
 	KolsVM.ErrorMessage = ""
-	KolsVM.PageIndex = SearchDTO.PageIndex
-	KolsVM.PageSize = SearchDTO.PageSize
+	KolsVM.PageIndex = int64(pageIndex)
+	KolsVM.PageSize = int64(pageSize)
 	KolsVM.Guid = guid
 	KolsVM.KOL = kols
 	KolsVM.TotalCount = int64(len(kols))
