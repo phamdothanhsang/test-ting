@@ -11,6 +11,7 @@ import (
 func init() {
 	Initializers.LoadEnvironmentVariables()
 	Initializers.ConnectToDB()
+	Initializers.MigrateAndSeed() // Migrate random fake data
 }
 
 func main() {
