@@ -1,6 +1,7 @@
 package Models
 
 import (
+	"math/rand"
 	"time"
 	"wan-api-kol-event/Const"
 )
@@ -37,4 +38,44 @@ type Kol struct {
 
 func (Kol) TableName() string {
 	return Const.TABLE_KOL
+}
+
+func randomString(length int) string {
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[rand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+func GetRandomKol(i int64) Kol {
+	return Kol{
+		UserProfileID:        int64(i + 1),
+		Language:             randomString(2),
+		Education:            randomString(10),
+		ExpectedSalary:       rand.Int63n(10000) + 3000,
+		ExpectedSalaryEnable: rand.Intn(2) == 1,
+		ChannelSettingTypeID: int64(rand.Intn(5) + 1),
+		IDFrontURL:           "http://example.com/idfront/" + randomString(3) + ".jpg",
+		IDBackURL:            "http://example.com/idback/" + randomString(3) + ".jpg",
+		PortraitURL:          "http://example.com/portrait/" + randomString(3) + ".jpg",
+		RewardID:             int64(rand.Intn(5) + 1),
+		PaymentMethodID:      int64(rand.Intn(5) + 1),
+		TestimonialsID:       int64(rand.Intn(5) + 1),
+		VerificationStatus:   rand.Intn(2) == 1,
+		Enabled:              rand.Intn(2) == 1,
+		ActiveDate:           time.Now(),
+		Active:               true,
+		CreatedBy:            "admin",
+		CreatedDate:          time.Now(),
+		ModifiedBy:           "admin",
+		ModifiedDate:         time.Now(),
+		IsRemove:             false,
+		IsOnBoarding:         rand.Intn(2) == 1,
+		Code:                 "KOL" + randomString(3),
+		PortraitRightURL:     "http://example.com/portraitright/" + randomString(3) + ".jpg",
+		PortraitLeftURL:      "http://example.com/portraitleft/" + randomString(3) + ".jpg",
+		LivenessStatus:       rand.Intn(2) == 1,
+	}
 }
