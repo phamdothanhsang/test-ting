@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"time"
+	"wan-api-kol-event/Models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -34,5 +35,31 @@ func ConnectToDB() {
 
 	if err != nil {
 		log.Fatal("Failed to connect to database")
+	}
+}
+
+func tableExists(db *gorm.DB, tableName string) bool {
+	var count int64
+	db.Table("pg_tables").Where("tablename = ?", tableName).Count(&count)
+	return count > 0
+}
+
+func MigrateAndSeed() {
+
+	if !tableExists(DB, "KOL") {
+		if err := DB.AutoMigrate(&Models.Kol{}); err != nil {
+			log.Fatal("Migration failed:", err)
+		}
+		for i := 0; i < 50; i++ {
+			kol := Models.GetRandomKol(int64(i))
+
+			if err := DB.Create(&kol).Error; err != nil {
+				log.Println("Error inserting fake data:", err)
+			}
+		}
+		log.Println("Migration and seeding completed successfully!")
+
+	} else {
+		log.Println("Table 'KOL' already exists. Skipping migration.")
 	}
 }

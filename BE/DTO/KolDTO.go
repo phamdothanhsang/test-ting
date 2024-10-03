@@ -1,6 +1,9 @@
 package DTO
 
-import "time"
+import (
+	"time"
+	"wan-api-kol-event/Models"
+)
 
 type KolDTO struct {
 	KolID                int64     `json:"kolID"`
@@ -16,7 +19,7 @@ type KolDTO struct {
 	RewardID             int64     `json:"rewardID"`
 	PaymentMethodID      int64     `json:"paymentMethodID"`
 	TestimonialsID       int64     `json:"testimonialsID"`
-	VerificationStatus   bool      `json:"verificationStatus"`
+	VerificationStatus   string    `json:"verificationStatus"`
 	Enabled              bool      `json:"enabled"`
 	ActiveDate           time.Time `json:"activeDate"`
 	Active               bool      `json:"active"`
@@ -29,5 +32,51 @@ type KolDTO struct {
 	Code                 string    `json:"code"`
 	PortraitRightURL     string    `json:"portraitRightURL"`
 	PortraitLeftURL      string    `json:"portraitLeftURL"`
-	LivenessStatus       bool      `json:"livenessStatus"`
+	LivenessStatus       string    `json:"livenessStatus"`
+}
+
+func NewKolDTO(kol Models.Kol) *KolDTO {
+	return &KolDTO{
+		KolID:                kol.KolID,
+		UserProfileID:        kol.UserProfileID,
+		Language:             kol.Language,
+		Education:            kol.Education,
+		ExpectedSalary:       kol.ExpectedSalary,
+		ExpectedSalaryEnable: kol.ExpectedSalaryEnable,
+		ChannelSettingTypeID: kol.ChannelSettingTypeID,
+		IDFrontURL:           kol.IDFrontURL,
+		IDBackURL:            kol.IDBackURL,
+		PortraitURL:          kol.PortraitURL,
+		RewardID:             kol.RewardID,
+		PaymentMethodID:      kol.PaymentMethodID,
+		TestimonialsID:       kol.TestimonialsID,
+		VerificationStatus:   mapVerificationStatus(kol.VerificationStatus),
+		Enabled:              kol.Enabled,
+		ActiveDate:           kol.ActiveDate,
+		Active:               kol.Active,
+		CreatedBy:            kol.CreatedBy,
+		CreatedDate:          kol.CreatedDate,
+		ModifiedBy:           kol.ModifiedBy,
+		ModifiedDate:         kol.ModifiedDate,
+		IsRemove:             kol.IsRemove,
+		IsOnBoarding:         kol.IsOnBoarding,
+		Code:                 kol.Code,
+		PortraitRightURL:     kol.PortraitRightURL,
+		PortraitLeftURL:      kol.PortraitLeftURL,
+		LivenessStatus:       mapLivenessStatus(kol.LivenessStatus),
+	}
+}
+
+func mapVerificationStatus(status bool) string {
+	if status {
+		return "Verified"
+	}
+	return "Pending"
+}
+
+func mapLivenessStatus(status bool) string {
+	if status {
+		return "Passed"
+	}
+	return "Failed"
 }

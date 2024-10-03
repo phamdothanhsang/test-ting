@@ -1,7 +1,9 @@
 package Controllers
 
 import (
+	"math"
 	"net/http"
+	"strconv"
 	"wan-api-kol-event/Const"
 	"wan-api-kol-event/Logic"
 	"wan-api-kol-event/ViewModels"
@@ -12,33 +14,39 @@ import (
 
 func GetKolsController(context *gin.Context) {
 	var KolsVM ViewModels.KolViewModel
-	var guid = uuid.New().String()
+	guid := uuid.New().String()
 
-	// * Get Kols from the database based on the range of pageIndex and pageSize
-	// * TODO: Implement the logic to get parameters from the request
-	// ? If parameter passed in the request is not valid, return the response with HTTP Status Bad Request (400)
-	// @params: pageIndex
-	// @params: pageSize
+	pageIndex := 1
+	pageSize := math.MaxInt // Default to max int for all records
 
-	// * Perform Logic Here
-	// ! Pass the parameters to the Logic Layer
-	kols, error := Logic.GetKolLogic()
-	if error != nil {
+	if pageIndexParam := context.Query("pageIndex"); pageIndexParam != "" {
+		if idx, err := strconv.Atoi(pageIndexParam); err == nil {
+			pageIndex = idx
+		}
+	}
+
+	if pageSizeParam := context.Query("pageSize"); pageSizeParam != "" {
+		if size, err := strconv.Atoi(pageSizeParam); err == nil {
+			pageSize = size
+		}
+	}
+
+	// Fetch KOL data using logic layer
+	kols, err := Logic.GetKolLogic(int64(pageIndex), int64(pageSize))
+	if err != nil {
 		KolsVM.Result = Const.UnSuccess
-		KolsVM.ErrorMessage = error.Error()
-		KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-		KolsVM.PageSize = 10 // * change this to the actual page size from the request
+		KolsVM.ErrorMessage = err.Error()
+		KolsVM.PageIndex = 1
+		KolsVM.PageSize = 10
 		KolsVM.Guid = guid
 		context.JSON(http.StatusInternalServerError, KolsVM)
 		return
 	}
 
-	// * Return the response after the logic is executed
-	// ? If the logic is successful, return the response with HTTP Status OK (200)
 	KolsVM.Result = Const.Success
 	KolsVM.ErrorMessage = ""
-	KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-	KolsVM.PageSize = 10 // * change this to the actual page size from the request
+	KolsVM.PageIndex = int64(pageIndex)
+	KolsVM.PageSize = int64(pageSize)
 	KolsVM.Guid = guid
 	KolsVM.KOL = kols
 	KolsVM.TotalCount = int64(len(kols))
