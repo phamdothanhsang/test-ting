@@ -9,6 +9,8 @@ import { Kols, transformKol } from "@/models/kol";
 import { fetchKols } from "@/services/kols-services";
 import KolsCard from "@/components/kolsCard";
 import Modal from "@/components/Modal";
+import Loading from "@/components/loading";
+import TableHead from "@/components/tableHead";
 
 const Page = () => {
   // * Use useState to store Kols from API
@@ -59,31 +61,13 @@ const Page = () => {
         {loading ? (
           <div>
             <table className="kol-table">
-              <thead>
-                <tr>
-                  <th>KOL ID</th>
-                  <th>KOL CODE</th>
-                  <th>Language</th>
-                  <th>Expected Salary</th>
-                  <th>Verification Status</th>
-                </tr>
-              </thead>
+              <TableHead />
             </table>
-            <div className="loader-container">
-              <div className="loader"></div>
-            </div>
+            <Loading />
           </div>
         ) : (
           <table className="kol-table">
-            <thead>
-              <tr>
-                <th>KOL ID</th>
-                <th>KOL CODE</th>
-                <th>Language</th>
-                <th>Expected Salary</th>
-                <th>Verification Status</th>
-              </tr>
-            </thead>
+            <TableHead />
             <tbody>
               {Kols.map((kol) => (
                 <KolsCard

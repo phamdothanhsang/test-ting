@@ -19,7 +19,7 @@ type KolDTO struct {
 	RewardID             int64     `json:"rewardID"`
 	PaymentMethodID      int64     `json:"paymentMethodID"`
 	TestimonialsID       int64     `json:"testimonialsID"`
-	VerificationStatus   string    `json:"verificationStatus"` // Changed to string
+	VerificationStatus   string    `json:"verificationStatus"`
 	Enabled              bool      `json:"enabled"`
 	ActiveDate           time.Time `json:"activeDate"`
 	Active               bool      `json:"active"`
@@ -32,7 +32,7 @@ type KolDTO struct {
 	Code                 string    `json:"code"`
 	PortraitRightURL     string    `json:"portraitRightURL"`
 	PortraitLeftURL      string    `json:"portraitLeftURL"`
-	LivenessStatus       string    `json:"livenessStatus"` // Changed to string
+	LivenessStatus       string    `json:"livenessStatus"`
 }
 
 func NewKolDTO(kol Models.Kol) *KolDTO {

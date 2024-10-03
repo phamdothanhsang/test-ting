@@ -4,7 +4,7 @@ import { Kols } from "@/models/kol";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  kol: Kols; // Use the Kols interface here
+  kol: Kols;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, kol }) => {
