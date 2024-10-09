@@ -11,6 +11,8 @@ import (
 func init() {
 	Initializers.LoadEnvironmentVariables()
 	Initializers.ConnectToDB()
+
+	// TODOS: Use GORM to create new schema and populate with dummies data
 }
 
 func main() {
