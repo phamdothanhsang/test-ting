@@ -22,7 +22,7 @@ func GetKolsController(context *gin.Context) {
 
 	// * Perform Logic Here
 	// ! Pass the parameters to the Logic Layer
-	kols, error := Logic.GetKolLogic()
+	kols, error := Logic.GetKolLogic(1, 10)
 	if error != nil {
 		KolsVM.Result = Const.UnSuccess
 		KolsVM.ErrorMessage = error.Error()

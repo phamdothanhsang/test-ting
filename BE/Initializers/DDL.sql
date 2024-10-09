@@ -2,10 +2,10 @@ CREATE SCHEMA IF NOT EXISTS `kol_test`;
 
 -- Dummies data generated from https://filldb.info/
 
-DROP TABLE IF EXISTS `KOL`;
+DROP TABLE IF EXISTS `kol_dtos`;
 /*!40101 SET @saved_cs_client= @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `KOL` (
+CREATE TABLE `kol_dtos` (
   `KolID` int(11) NOT NULL,
   `UserProfileID` int(11) DEFAULT NULL,
   `Language` text DEFAULT NULL,
@@ -41,9 +41,9 @@ CREATE TABLE `KOL` (
 -- Dumping data for table `KOL`
 --
 
-LOCK TABLES `KOL` WRITE;
-/*!40000 ALTER TABLE `KOL` DISABLE KEYS */;
-INSERT INTO `KOL` VALUES
+LOCK TABLES `kol_dtos` WRITE;
+/*!40000 ALTER TABLE `kol_dtos` DISABLE KEYS */;
+INSERT INTO `kol_dtos` VALUES
 (2,196989754,'gljw','omnis',372,0,15497423,'http://corwin.net/','http://www.parker.com/','http://www.cremincartwright.com/',8070487,59666948,44783,0,0,'1970-05-17',1,'nchj','1978-11-25','covq','1989-03-14',0,0,'lgul','http://www.hartmann.com/','http://turner.com/',1),
 (5,34680,'gemt','veritatis',469260108,1,287,'http://koch.net/','http://www.hodkiewiczyost.com/','http://miller.com/',79,4501197,6,0,0,'2010-02-07',0,'uqst','1996-09-13','bhtg','2011-01-07',0,0,'vylr','http://bashirian.com/','http://www.kunze.com/',0),
 (6,3194,'zhax','voluptas',564045,1,131272,'http://www.fritschhowe.com/','http://www.bartellstamm.net/','http://www.armstrong.biz/',0,606194,95396,1,1,'1996-06-21',0,'fbup','1997-05-20','sosm','1990-06-10',1,1,'gato','http://lebsack.com/','http://gusikowskisteuber.com/',0),
@@ -64,7 +64,7 @@ INSERT INTO `KOL` VALUES
 (66484519,502,'mqgt','vitae',9891,1,26881,'http://www.bahringerhowe.com/','http://schimmel.com/','http://mraz.org/',4511,92,78919318,1,0,'2000-09-01',0,'gwse','1996-05-09','pbay','2001-05-14',0,0,'llbf','http://lakin.com/','http://www.wintheiser.com/',0),
 (111392938,5,'mlmh','neque',21069,0,264036007,'http://www.koepp.com/','http://dubuquejohnson.com/','http://wolf.com/',2671953,6845,800950190,1,0,'2016-12-08',0,'bber','1983-05-22','lkex','2001-04-16',1,1,'qcuf','http://shields.com/','http://medhurststracke.com/',1),
 (271652571,7,'mzsz','necessitatibus',65,1,33,'http://www.swaniawski.com/','http://gusikowski.org/','http://predovickautzer.biz/',86627,31,81737358,1,0,'1971-05-15',1,'vmba','1989-07-26','qlrd','1975-01-07',0,1,'huca','http://vonruedenbreitenberg.com/','http://www.ratke.org/',0);
-/*!40000 ALTER TABLE `KOL` ENABLE KEYS */;
+/*!40000 ALTER TABLE `kol_dtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- Dump completed on 2024-10-09 13:25:26
