@@ -2,6 +2,7 @@ package Controllers
 
 import (
 	"net/http"
+	"strconv"
 	"wan-api-kol-event/Const"
 	"wan-api-kol-event/Logic"
 	"wan-api-kol-event/ViewModels"
@@ -22,12 +23,29 @@ func GetKolsController(context *gin.Context) {
 
 	// * Perform Logic Here
 	// ! Pass the parameters to the Logic Layer
-	kols, error := Logic.GetKolLogic(1, 10)
+	q := context.Request.URL.Query()
+	pageSize, size_error := strconv.Atoi(q.Get("page_size"))
+	pageIndex, index_error := strconv.Atoi(q.Get("page_index"))
+
+	if size_error != nil || index_error != nil {
+		var error_mess string = "Invalid page_size/page_index"
+
+		KolsVM.Result = Const.UnSuccess
+		KolsVM.ErrorMessage = error_mess
+		KolsVM.PageIndex = pageIndex
+		KolsVM.PageSize = pageSize
+		KolsVM.Guid = guid
+		context.JSON(http.StatusBadRequest, KolsVM)
+		return
+	}
+
+	kols, error := Logic.GetKolLogic(pageSize, pageIndex)
+
 	if error != nil {
 		KolsVM.Result = Const.UnSuccess
 		KolsVM.ErrorMessage = error.Error()
-		KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-		KolsVM.PageSize = 10 // * change this to the actual page size from the request
+		KolsVM.PageIndex = pageIndex // * change this to the actual page index from the request
+		KolsVM.PageSize = pageSize   // * change this to the actual page size from the request
 		KolsVM.Guid = guid
 		context.JSON(http.StatusInternalServerError, KolsVM)
 		return
@@ -37,8 +55,8 @@ func GetKolsController(context *gin.Context) {
 	// ? If the logic is successful, return the response with HTTP Status OK (200)
 	KolsVM.Result = Const.Success
 	KolsVM.ErrorMessage = ""
-	KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-	KolsVM.PageSize = 10 // * change this to the actual page size from the request
+	KolsVM.PageIndex = pageIndex // * change this to the actual page index from the request
+	KolsVM.PageSize = pageSize   // * change this to the actual page size from the request
 	KolsVM.Guid = guid
 	KolsVM.KOL = kols
 	KolsVM.TotalCount = int64(len(kols))
