@@ -54,6 +54,98 @@ const columns = [
 	{
 		key: "education",
 		label: "Education"
+	},
+	{
+		key:"expectedSalary",
+		label: "Expected Salary"
+	},
+	{
+		key: "expectedSalaryEnable",
+		label: "Expected Salary Enable"
+	},
+	{
+		key:"channelSettingTypeID",
+		label:"Channel Setting Type ID"
+	},
+	{
+		key: "iDFrontURL",
+		label: "FrontURL ID"
+	},
+	{
+		key: "iDBackURL",
+		label: "BackURL ID"
+	},
+	{
+		key: "portraitURL",
+		label: "Portrait URL"
+	},
+	{
+		key: "rewardID",
+		label: "Reward ID"
+	},
+	{
+		key: "paymentMethodID",
+		label: "Payment Method ID"
+	},
+	{
+		key: "testimonialsID",
+		label: "Testimonials ID"
+	},
+	{
+		key: "verificationStatus",
+		label: "Verification Status"
+	},
+	{
+		key: "enabled",
+		label: "Enabled"
+	},
+	{
+		key: "activeDate",
+		label: "Active Date"
+	},
+	{
+		key: "active",
+		label: "Active"
+	},
+	{
+		key: "createdBy",
+		label: "Created By"
+	},
+	{
+		key: "createdDate",
+		label:  "Created Date"
+	},
+	{
+		key: "modifiedBy",
+		label: "Modified By"
+	},
+	{
+		key: "modifiedDate",
+		label: "Modified Date"
+	},
+	{
+		key: "isRemove",
+		label: "Is Removed"
+	},
+	{
+		key: "isOnBoarding",
+		label: "Is Onboarding"
+	},
+	{
+		key: "code",
+		label: "Code"
+	},
+	{
+		key:"portraitRightURL",
+		label: "Portrait Right URL"
+	},
+	{
+		key:"portraitLeftURL",
+		label: "Portrait Left URL"
+	},
+	{
+		key: "livenessStatus",
+		label: "Liveness Status"
 	}
 ];
 
@@ -81,18 +173,24 @@ const Page = () => {
 
 	
 	return (
-		<Table aria-label="Example table with dynamic content">
+		<>
+		<h1 className="text-3xl font-bold underline text-center">
+			KOLs Information
+		</h1>
+		<br></br>
+		<Table isStriped aria-label="test table" className="light">
 			<TableHeader columns={columns}>
 				{(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
 			</TableHeader>
 			<TableBody items={KolsList}>
 				{(item) => (
 				<TableRow key={item.kolID}>
-					{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+					{(columnKey) => <TableCell>{getKeyValue(item, columnKey).toString()}</TableCell>}
 				</TableRow>
 				)}
 			</TableBody>
 		</Table>
+		</>
 	);
 }
 
