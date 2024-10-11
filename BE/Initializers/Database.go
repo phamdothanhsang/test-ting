@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -18,8 +18,8 @@ func ConnectToDB() {
 	//Get database url from environment variables (defined in .env file)
 	var dsn string = os.Getenv("DB_URL")
 
-	//Connect with postgres
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+	//Connect with mysql
+	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 			logger.Config{

@@ -1,0 +1,4 @@
+﻿BE/.env
+FE/node_modules/
+FE/.next/
+FE/.swc/
