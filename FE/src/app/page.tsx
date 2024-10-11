@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Pagination} from "@nextui-org/react";
 
 // * Import CSS file, you can use CSS module if you want
 // ! Change your CSS inside this file
@@ -152,14 +152,16 @@ const columns = [
 const Page = () => {
     // * Use useState to store Kols from API 
     // ! (if you have more optimized way to store data, PLEASE FEELS FREE TO CHANGE)
-	const [KolsList , setKols] = useState<Kols[]>([]);  
+	const [KolsList , setKols] = useState<Kols[]>([]);
+	const pageSize = 10;
+	const pageIndex = 1;
 
     // * Fetch API over here 
     // * Use useEffect to fetch data from API 
 	
     useEffect(() => {
 		// Could be GET or POST/PUT/PATCH/DELETE
-		fetch('http://localhost:8081/kols?page_size=5&page_index=1')
+		fetch(`http://localhost:8081/kols?page_size=${pageSize}&page_index=${pageIndex}`)
 			.then(res => res.json())
 			.then((res) => {
 				setKols(res["kol"])
@@ -178,7 +180,12 @@ const Page = () => {
 			KOLs Information
 		</h1>
 		<br></br>
-		<Table isStriped aria-label="test table" className="light">
+		<Table 
+			isStriped aria-label="test table" 
+			classNames={{
+        		base: "max-h-[300px]"
+      		}}
+		>
 			<TableHeader columns={columns}>
 				{(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
 			</TableHeader>
