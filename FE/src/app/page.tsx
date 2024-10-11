@@ -2,6 +2,8 @@
 
 import React, {useEffect, useState} from 'react';
 
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue} from "@nextui-org/react";
+
 // * Import CSS file, you can use CSS module if you want
 // ! Change your CSS inside this file
 import './page.css'
@@ -36,6 +38,25 @@ interface Kols {
 	livenessStatus: boolean;
 }
 
+const columns = [
+	{
+	  key: "kolID",
+	  label: "ID",
+	},
+	{
+	  key: "userProfileID",
+	  label: "Profile ID",
+	},
+	{
+	  key: "language",
+	  label: "Language",
+	},
+	{
+		key: "education",
+		label: "Education"
+	}
+];
+
 const Page = () => {
     // * Use useState to store Kols from API 
     // ! (if you have more optimized way to store data, PLEASE FEELS FREE TO CHANGE)
@@ -53,26 +74,26 @@ const Page = () => {
 				// console.log(KolsList)
 			})
 	}, [])
-		
+	
+
 
 /* { status: 'ok', method: 'GET' } */
 
 	
 	return (
-		<>
-			<h1 className='header'>Implement component over here</h1>
-			<ul>
-				{
-					KolsList.map((item, i) => {
-						return <li key={i}>
-									{}
-								</li>
-					})
-				}
-			</ul>
-		</>
-	)
-    
-};
+		<Table aria-label="Example table with dynamic content">
+			<TableHeader columns={columns}>
+				{(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+			</TableHeader>
+			<TableBody items={KolsList}>
+				{(item) => (
+				<TableRow key={item.kolID}>
+					{(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+				</TableRow>
+				)}
+			</TableBody>
+		</Table>
+	);
+}
 
 export default Page;
