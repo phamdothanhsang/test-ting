@@ -7,51 +7,72 @@ import React, {useEffect, useState} from 'react';
 import './page.css'
 
 interface Kols {
-	KolID: number;
-	UserProfileID: number;
-	Language: string;
-	Education: string;
-	ExpectedSalary: number;
-	ExpectedSalaryEnable: boolean;
-	ChannelSettingTypeID: number;
-	IDFrontURL: string;
-	IDBackURL: string;
-	PortraitURL: string;
-	RewardID: number;
-	PaymentMethodID: number;
-	TestimonialsID: number;
-	VerificationStatus: boolean;
-	Enabled: boolean;
-	ActiveDate: Date;
-	Active: boolean;
-	CreatedBy: string;
-	CreatedDate: Date;
-	ModifiedBy: string;
-	ModifiedDate: Date;
-	IsRemove: boolean;
-	IsOnBoarding: boolean;
-	Code: string;
-	PortraitRightURL: string;
-	PortraitLeftURL: string;
-	LivenessStatus: boolean;
+	kolID: number;
+	userProfileID: number;
+	language: string;
+	education: string;
+	expectedSalary: number;
+	expectedSalaryEnable: boolean;
+	channelSettingTypeID: number;
+	iDFrontURL: string;
+	iDBackURL: string;
+	portraitURL: string;
+	rewardID: number;
+	paymentMethodID: number;
+	testimonialsID: number;
+	verificationStatus: boolean;
+	enabled: boolean;
+	activeDate: Date;
+	active: boolean;
+	createdBy: string;
+	createdDate: Date;
+	modifiedBy: string;
+	modifiedDate: Date;
+	isRemove: boolean;
+	isOnBoarding: boolean;
+	code: string;
+	portraitRightURL: string;
+	portraitLeftURL: string;
+	livenessStatus: boolean;
 }
 
 const Page = () => {
     // * Use useState to store Kols from API 
     // ! (if you have more optimized way to store data, PLEASE FEELS FREE TO CHANGE)
-	const [Kols , setKols] = useState<Kols[]>([]);  
+	const [KolsList , setKols] = useState<Kols[]>([]);  
 
     // * Fetch API over here 
     // * Use useEffect to fetch data from API 
+	
     useEffect(() => {
+		// Could be GET or POST/PUT/PATCH/DELETE
+		fetch('http://localhost:8081/kols?page_size=5&page_index=1')
+			.then(res => res.json())
+			.then((res) => {
+				setKols(res["kol"])
+				// console.log(KolsList)
+			})
+	}, [])
+		
 
-    }, []);
+/* { status: 'ok', method: 'GET' } */
 
-    return (
-        <>
-            <h1 className='header'>Implement component over here</h1>
-        </>
-    )
+	
+	return (
+		<>
+			<h1 className='header'>Implement component over here</h1>
+			<ul>
+				{
+					KolsList.map((item, i) => {
+						return <li key={i}>
+									{}
+								</li>
+					})
+				}
+			</ul>
+		</>
+	)
+    
 };
 
 export default Page;

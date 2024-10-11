@@ -14,6 +14,10 @@ import (
 func GetKolsController(context *gin.Context) {
 	var KolsVM ViewModels.KolViewModel
 	var guid = uuid.New().String()
+	context.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	context.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+	context.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+	context.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 
 	// * Get Kols from the database based on the range of pageIndex and pageSize
 	// * TODO: Implement the logic to get parameters from the request
