@@ -6,33 +6,33 @@ import (
 )
 
 type Kol struct {
-	KolID                int64     `json:"kolID"  gorm:"primaryKey;  column:KolID"`
-	UserProfileID        int64     `json:"userProfileID" gorm:"column:UserProfileID"`
-	Language             string    `json:"language" gorm:"column:Language"`
-	Education            string    `json:"education" gorm:"column:Education"`
-	ExpectedSalary       int64     `json:"expectedSalary" gorm:"column:ExpectedSalary"`
-	ExpectedSalaryEnable bool      `json:"expectedSalaryEnable" gorm:"column:ExpectedSalaryEnable"`
-	ChannelSettingTypeID int64     `json:"channelSettingTypeID" gorm:"column:ChannelSettingTypeID"`
-	IDFrontURL           string    `json:"iDFrontURL" gorm:"column:IDFrontURL"`
-	IDBackURL            string    `json:"iDBackURL" gorm:"column:IDBackURL"`
-	PortraitURL          string    `json:"portraitURL" gorm:"column:PortraitURL"`
-	RewardID             int64     `json:"rewardID" gorm:"column:RewardID"`
-	PaymentMethodID      int64     `json:"paymentMethodID" gorm:"column:PaymentMethodID"`
-	TestimonialsID       int64     `json:"testimonialsID" gorm:"column:TestimonialsID"`
-	VerificationStatus   bool      `json:"verificationStatus" gorm:"column:VerificationStatus"`
-	Enabled              bool      `json:"enabled" gorm:"column:Enabled"`
-	ActiveDate           time.Time `json:"activeDate" gorm:"column:ActiveDate"`
-	Active               bool      `json:"active" gorm:"column:Active"`
-	CreatedBy            string    `json:"createdBy" gorm:"column:CreatedBy"`
-	CreatedDate          time.Time `json:"createdDate" gorm:"column:CreatedDate"`
-	ModifiedBy           string    `json:"modifiedBy" gorm:"column:ModifiedBy"`
-	ModifiedDate         time.Time `json:"modifiedDate" gorm:"column:ModifiedDate"`
-	IsRemove             bool      `json:"isRemove" gorm:"column:IsRemove"`
-	IsOnBoarding         bool      `json:"isOnBoarding" gorm:"column:IsOnBoarding"`
-	Code                 string    `json:"code" gorm:"column:Code"`
-	PortraitRightURL     string    `json:"portraitRightURL" gorm:"column:PortraitRightURL"`
-	PortraitLeftURL      string    `json:"portraitLeftURL" gorm:"column:PortraitLeftURL"`
-	LivenessStatus       bool      `json:"livenessStatus" gorm:"column:LivenessStatus"`
+	KolID                int64     `json:"kolID"  gorm:"primaryKey;  column:kolid"`
+	UserProfileID        int64     `json:"userProfileID" gorm:"column:userprofileid"`
+	Language             string    `json:"language" gorm:"column:language"`
+	Education            string    `json:"education" gorm:"column:education"`
+	ExpectedSalary       int64     `json:"expectedSalary" gorm:"column:expectedsalary"`
+	ExpectedSalaryEnable bool      `json:"expectedSalaryEnable" gorm:"column:expectedsalaryenable"`
+	ChannelSettingTypeID int64     `json:"channelSettingTypeID" gorm:"column:channelsettingtypeid"`
+	IDFrontURL           string    `json:"iDFrontURL" gorm:"column:idfronturl"`
+	IDBackURL            string    `json:"iDBackURL" gorm:"column:idbackurl"`
+	PortraitURL          string    `json:"portraitURL" gorm:"column:portraiturl"`
+	RewardID             int64     `json:"rewardID" gorm:"column:rewardid"`
+	PaymentMethodID      int64     `json:"paymentMethodID" gorm:"column:paymentmethodid"`
+	TestimonialsID       int64     `json:"testimonialsID" gorm:"column:testimonialsid"`
+	VerificationStatus   bool      `json:"verificationStatus" gorm:"column:verificationstatus"`
+	Enabled              bool      `json:"enabled" gorm:"column:enabled"`
+	ActiveDate           time.Time `json:"activeDate" gorm:"column:activedate"`
+	Active               bool      `json:"active" gorm:"column:active"`
+	CreatedBy            string    `json:"createdBy" gorm:"column:createdby"`
+	CreatedDate          time.Time `json:"createdDate" gorm:"column:createddate"`
+	ModifiedBy           string    `json:"modifiedBy" gorm:"column:modifiedby"`
+	ModifiedDate         time.Time `json:"modifiedDate" gorm:"column:modifieddate"`
+	IsRemove             bool      `json:"isRemove" gorm:"column:isremove"`
+	IsOnBoarding         bool      `json:"isOnBoarding" gorm:"column:isonboarding"`
+	Code                 string    `json:"code" gorm:"column:code"`
+	PortraitRightURL     string    `json:"portraitRightURL" gorm:"column:portraitrighturl"`
+	PortraitLeftURL      string    `json:"portraitLeftURL" gorm:"column:portraitlefturl"`
+	LivenessStatus       bool      `json:"livenessStatus" gorm:"column:livenessstatus"`
 }
 
 func (Kol) TableName() string {

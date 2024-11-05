@@ -3,9 +3,55 @@
     This is the CSS file for the page component. 
     It contains the styles for the header of the page.
 */
-.header { 
+/* Thêm các syntax để tailwindcss hoạt động */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components{
+    .thead-border{
+        @apply border-collapse border border-slate-500
+    }
+    .tbody-border{
+        @apply border border-gray-800 px-4 py-2
+    }
+}
+.title { 
     background-color: #333;
     color: white;
     padding: 1em;
     text-align: center;
+}
+main{
+    font-family: 'Poppins', sans-serif;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+.table-wrapper {
+    position:relative;
+}
+.table-scroll {
+    width: 100%;
+    height:100%;
+    overflow-y:auto;  
+    overflow-x: auto;
+  }
+.table-wrapper table {
+    width:100%;    
+}
+  
+table th {
+    white-space: nowrap;
+    background-color: #31511E;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    padding: 0.6rem 1rem;
+}
+table tbody tr:nth-of-type(even){
+    background-color: #CCD5AE;
+}
+table tbody tr{
+    /* scroll-snap-align: start; */
 }
