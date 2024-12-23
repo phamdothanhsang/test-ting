@@ -1,11 +1,89 @@
-
-/* 
-    This is the CSS file for the page component. 
-    It contains the styles for the header of the page.
-*/
-.header { 
-    background-color: #333;
-    color: white;
-    padding: 1em;
-    text-align: center;
-}
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+  
+  /* Header Section */
+  .header {
+      background-color: #333;
+      color: white;
+      padding: 1.5em;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    
+    /* List of KOLs */
+    .kol-list {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+    }
+    
+    .kol-item {
+      margin: 15px 0;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Pagination Section */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      padding: 10px;
+    }
+    
+    /* Pagination Buttons */
+    button {
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .kol-item a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .kol-item a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Styling for the "No Kols found" message */
+    .no-kols {
+      text-align: center;
+      color: #555;
+      font-size: 18px;
+      margin-top: 30px;
+    }
+    
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    

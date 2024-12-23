@@ -5,18 +5,29 @@ import (
 	"wan-api-kol-event/Controllers"
 	"wan-api-kol-event/Initializers"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
+	// Load environment variables and connect to DB
 	Initializers.LoadEnvironmentVariables()
 	Initializers.ConnectToDB()
 }
 
 func main() {
+	// Initialize Gin router
 	r := gin.Default()
 
-	// Define your Gin routes here
+	// Cấu hình CORS middleware
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		AllowCredentials: true,
+	}))
+
+	// Define your Gin routes
 	r.GET("/kols", Controllers.GetKolsController)
 
 	// Run Gin server

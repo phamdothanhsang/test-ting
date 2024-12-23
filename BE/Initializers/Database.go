@@ -10,29 +10,35 @@ import (
 	"gorm.io/gorm/logger"
 )
 
+// Global variable to hold the database connection
 var DB *gorm.DB
 
 func ConnectToDB() {
 	var err error
 
-	//Get database url from environment variables (defined in .env file)
-	var dsn string = os.Getenv("DB_URL")
+	dsn := os.Getenv("DB_URL")
+	if dsn == "" {
+		log.Fatal("DB_URL environment variable is not set")
+	}
 
-	//Connect with postgres
+	log.Println("Attempting to connect to database with URL:", dsn)
+
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.New(
-			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+			log.New(os.Stdout, "\r\n", log.LstdFlags), // Output logs to stdout
 			logger.Config{
-				SlowThreshold:             50 * time.Millisecond, // Slow SQL threshold
-				LogLevel:                  logger.Warn,           // Log level
-				IgnoreRecordNotFoundError: false,                 // Dont ignore ErrRecordNotFound error for logger
-				ParameterizedQueries:      false,                 // Include params in the SQL log
-				Colorful:                  true,                  // Disable color
+				SlowThreshold:             50 * time.Millisecond, // Log queries slower than 50ms
+				LogLevel:                  logger.Warn,           // Log only warnings and errors
+				IgnoreRecordNotFoundError: false,                 // Log record not found errors
+				ParameterizedQueries:      false,                 // Include query parameters in logs
+				Colorful:                  true,                  // Enable colorful output
 			},
 		),
 	})
 
 	if err != nil {
-		log.Fatal("Failed to connect to database")
+		log.Fatalf("Failed to connect to database: %v", err)
 	}
+
+	log.Println("Connected to database successfully")
 }

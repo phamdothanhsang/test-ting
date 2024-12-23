@@ -2,6 +2,8 @@ package Controllers
 
 import (
 	"net/http"
+	"strconv"
+
 	"wan-api-kol-event/Const"
 	"wan-api-kol-event/Logic"
 	"wan-api-kol-event/ViewModels"
@@ -14,33 +16,37 @@ func GetKolsController(context *gin.Context) {
 	var KolsVM ViewModels.KolViewModel
 	var guid = uuid.New().String()
 
-	// * Get Kols from the database based on the range of pageIndex and pageSize
-	// * TODO: Implement the logic to get parameters from the request
-	// ? If parameter passed in the request is not valid, return the response with HTTP Status Bad Request (400)
-	// @params: pageIndex
-	// @params: pageSize
+	// Get pageIndex and pageSize from query parameters
+	pageIndex, err := strconv.Atoi(context.DefaultQuery("page", "1"))
+	if err != nil || pageIndex < 1 {
+		pageIndex = 1
+	}
 
-	// * Perform Logic Here
-	// ! Pass the parameters to the Logic Layer
-	kols, error := Logic.GetKolLogic()
-	if error != nil {
+	pageSize, err := strconv.Atoi(context.DefaultQuery("pageSize", "10"))
+	if err != nil || pageSize < 1 {
+		pageSize = 10
+	}
+
+	// Fetch paginated KOLs and total count
+	kols, totalCount, fetchErr := Logic.GetKolLogic(pageIndex-1, pageSize)
+	if fetchErr != nil {
 		KolsVM.Result = Const.UnSuccess
-		KolsVM.ErrorMessage = error.Error()
-		KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-		KolsVM.PageSize = 10 // * change this to the actual page size from the request
+		KolsVM.ErrorMessage = fetchErr.Error()
 		KolsVM.Guid = guid
 		context.JSON(http.StatusInternalServerError, KolsVM)
 		return
 	}
 
-	// * Return the response after the logic is executed
-	// ? If the logic is successful, return the response with HTTP Status OK (200)
+	// Calculate totalPages from totalCount and pageSize
+	totalPages := (totalCount + int64(pageSize) - 1) / int64(pageSize)
+
+	// Return paginated data
 	KolsVM.Result = Const.Success
 	KolsVM.ErrorMessage = ""
-	KolsVM.PageIndex = 1 // * change this to the actual page index from the request
-	KolsVM.PageSize = 10 // * change this to the actual page size from the request
+	KolsVM.TotalCount = totalCount
+	KolsVM.TotalPages = totalPages
+	KolsVM.KolInformation = kols
 	KolsVM.Guid = guid
-	KolsVM.KOL = kols
-	KolsVM.TotalCount = int64(len(kols))
+
 	context.JSON(http.StatusOK, KolsVM)
 }

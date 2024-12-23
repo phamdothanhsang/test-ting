@@ -9,16 +9,17 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"next": "14.2.3",
-		"react": "^18",
-		"react-dom": "^18",
+		"axios": "^1.7.9",
+		"next": "^14.2.20",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"react-lottie-player": "^2.0.0"
 	},
 	"devDependencies": {
 		"@types/aos": "^3.0.7",
 		"@types/cookie": "^0.6.0",
 		"@types/node": "^20",
-		"@types/react": "^18",
+		"@types/react": "^18.3.17",
 		"@types/react-dom": "^18",
 		"@types/react-slick": "^0.23.13",
 		"eslint": "^8",
